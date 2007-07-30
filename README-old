@@ -1,0 +1,25 @@
+This is libborg, the meta-programming library which assimilates APIs from various
+opensource libraries. It provides a thin wrapper layer which adapts the structures
+of the underlying libraries to generic concepts.
+
+Practically this means that you can code, for example, your routines dealing with 
+strings in a generic way, so they are useable likewise in an APR (apache-runtime,
+used when writing apache modules), NSPR (mozilla runtime), libxml2, glib (gnome),
+Qt, wxWidgets or any other environment. In this case libborg provides an abstract 
+string interface (a string class and its iterator classes) which is implemented
+on top of every supported library that provides string processing facilities.
+
+This wrapping layer is done entirely using template-metaprogramming techniques
+which will do the whole dispatching at compile-time, unlike traditional 
+polymorphism, which requires virtual function calls and thus generates additional
+code which results in increased binary size and performance penalties.
+
+A more elaborate example would be an audio-streaming application whose network
+part relies completely on generic socket and i/o streaming concepts, the audio-
+format decoding on generic decoder concepts, sampling and playing sound on 
+generic signal processing and i/o concepts, and the user-interface on generic
+toolkit concepts. This approach would result in a highly portable - not only
+across OSes but also across frameworks/environments - application and also,
+in the view of the coder, in a collection of many useful generic code-snippets
+which can be reused in future projects.
+

@@ -1,0 +1,8 @@
+libborg
+-----------------------------------------------------------------------------
+
+A collection of generic concepts which abstracts concepts commonly found in
+free software libraries - e.g. widget, container and event concepts in GUI 
+toolkits - and provides adapters for the concrete implementation to the
+generic interface.
+

@@ -1,0 +1,579 @@
+reactable
+-----------------------------------------------------------------------------
+Dynamic Patches for Live Musical Performance:
+
+http://mtg.upf.edu/reactable/pdfs/nime04-Kaltenbrunner.pdf
+
+http://www.iua.upf.es/mtg/reacTable/pdfs/GW2005-KaltenBoverBencinaConstanza.pdf
+
+next few tasks:
+ -----------------------------------------------------------------------------
+
+  basically: keep up the good work, keep happy, become less destructive
+             and depressive, get more coordination, get more focus, 
+             calm down sometimes, do NOT skip the essiential breaks,
+             divide work into smaller tasks, feeling the progress.
+
+  - adapt XmlHttpRequest class from anyterm into unblu, finish implementing
+    the unblu recorder api ontop of it.
+
+  - get info about metadata extraction (there was some project at sf.net?)
+
+ internet ideas:
+ -----------------------------------------------------------------------------
+
+  - make an open online-repository with oo concepts? 
+    would be good to encourage unified implementation/pattern style.
+    would need a data format to communicate and store template/class info 
+    (yaml, dot, c++ itself).
+    also look at the possibility of mining patterns from source code, as 
+    proposed by a paper i have seen.
+
+  - make a http module for chaosircd which would allow one to write
+    an ajax irc client (probably using parts of the anyterm code!)
+
+  - make a web-based drum-machine, with a simple sequencer and probably
+    some sound-design capabilities?
+    sound will be generated from within an apache module, which streams
+    it to an embedded flash object (invisible, the UI will be ajaxish)
+
+
+ work ideas:
+ -----------------------------------------------------------------------------
+
+  - make simple web-apps to navigate within a buildfarm and to build, collect 
+    and manage packages.
+
+  - mod_nexindex: make an ajax directory indexing module, with support 
+    for annotation and meta-information (using libextract).
+
+  - making a gecko render-engine run in realtime on a server with a custom 
+    backend which allows for video-encoding. in it we could run the unblu
+    player and thus providing means of exporting unblu sessions as video.
+
+
+ opensource ideas:
+ -----------------------------------------------------------------------------
+
+  - make a djb-styled library with memory management primitives, which can
+    be used to build highly specialized memory allocators and some kind of
+    container classes which can be built upon them.
+    
+  - make a GNU autoconf fork (dietconf) which utilizes shell functions 
+    (say fn(){}) to achieve smaller configure scripts and faster runs.
+    
+  - collect stuff from all my makefiles previously written (chaosircd, shish,
+    libborg) and put together a BSD-styled build system (consisting of a 
+    library of .mk files, each dedicated to a simple task) which works together 
+    with the previously mentioned autoconf fork.
+
+  - make libchaos work ontop of libowfat! 
+    it should provide at least a 'log', 'listen', 'connect' and a 'queue'
+    class (the latter is a dynamically resizeable buffer).
+    we will try to use the io_* functions from libowfat for non-blocking i/o.
+
+
+ cvs reps to create:
+ -----------------------------------------------------------------------------
+ 
+  - libborg   (the super-duper template library)
+  - liballoc  (find better name as there is already a liballoc)
+  - chaosircd (and libchaos)
+  - dietconf  (autoconf fork)
+  - shish     (cvs2svn?)
+  - compat    (libdl and dirent for mingw32)
+  - tichu     (is on mia.nexbyte.ch as far as i remember)
+  
+  no longer maintaining the following?
+  
+  - zipios++  (hell, lets make the fork into a proper patch and submit it,
+               i do not want to maintain this)
+  - clipp     (would probably also be worth to make a patch to submit)
+  - jsmm      (merge useable stuff into libborg, discard the rest)
+
+
+ stuff to study:
+ -----------------------------------------------------------------------------
+
+  - boost::serialization, 
+    making it interoperable with borg::xml/yaml
+  
+  - libextract (metadata extraction)
+    together with recls and yaml/sql it could seriously help to maintain messy 
+    filesystems.
+    there is also a vast amount of publications on IE (information extraction)
+    and NLP (natural language processing) on the internet which can be
+    consulted.
+
+  - FreeLing,
+    see if it could be used to extract information from documents 
+    or to come up with a next-generation catty (the cybersex bot)
+    
+  - get cygwin rxvt sources and figure out how they made it running without
+    being backed by an X11 server...
+  
+  - check which browsers already implement E4X (ECMAScript XML extension).
+
+  - what would it require to implement YAML in JavaScript?
+
+  - study SVG, Canvas and VML (and XHTML capabilities of current browsers).
+    it would be possible to extend neximage with vector graphics capabilities.
+    vector manipulation happens at the client side, the resulting vector data
+    will be posted to an apache module which renders it using librsvg/cairo.
+
+  - libfann,
+    recent checkout, as they are working on it during googles SoC2007
+  
+  - VST, portmidi (and perhaps ALSA, JACK),
+    to design an abstract midi interface within libborg.
+
+ 
+
+ first sound libraries to adapt
+ ---------------------------------------------------
+
+  - Stk      (it has the facilities to implement
+              those wonderful physical modeling
+              techniques pioneered by music research
+              god Julius Orion Smith)
+
+  - SndObj   (general purpose synthesis lib)
+  - Nsound   (not unlike SndObj, but much cleaner code)
+
+ abstract interfaces to design
+ ---------------------------------------------------
+
+  damn, how to organize this properly? 
+  a graph? 
+  a README in every subdir?
+  documentation like boost::iostreams?
+
+  - memory: allocator, pool
+ 
+            those are implemented by: apr... (and there are pools in boost)
+
+  - fs:     file (iostream adapters?), dir (boost::filesystem::path adapter?)
+  
+            those are implemented by: apr, NSPR, wxWidgets
+
+  - exec:   execution and process classes, allowing to supervise child processes
+            and exchange data with them.
+
+            this is implemented by: wxWidgets, GNU libiberty
+            
+
+
+ stuff to compile
+ -----------------------------------------------------------------------------
+
+  - CLAM!!!!!!!!!!!!!!!!!!!!!!
+
+  - proper nspr javascript dll! (actually have it installed, but make sure the
+    packages are properly)
+
+  - mysql for mingw32!
+  - possibly postgresql for mingw32?
+
+  - vstsdk and vstgui for both, unixes and windozes (for vstgui see anticore x11 port)
+
+  - php static library, with and without tsrm
+  - static mingw32 apache? (or lets just take the win32 binaries, possibly 
+                            running them ontop self-built apr lib)
+
+  - recompile xerces with original namespace (huh, does not compile any more?)
+  - rebuild xerces with debugging symbols and without mingwm10.dll
+
+  - another try at librsvg (or look for another svg lib)
+
+  - fltk (wrap it along with wx in libborg)
+  - qt?  (same thing here, but unlikely, because even huger than wx)
+  - SDL?
+
+  - mplayer? (at least get the manpage, which is lacking in the win32 pkg and thus missing on zwergli)
+  - CSL?
+  - some neural net libs
+  - some genetic algo libs
+
+  - the gccxml thing that interacts with reflex
+  - cint and cintex
+
+  - c++ to aterm format? codeboost!
+  - c++ thing for stratego/aterm. codeboost!
+
+  - nspr
+  - js (using nspr and readline)
+  - gccxml
+  - OpenAL
+  - CSL
+  - CLAM
+  - djbfft (weeeeeeoow!)
+  - freeverb
+  - IT++ (itpp)
+  - libtsp
+  - SndObj
+  - juce!!!
+  - pd
+  - octave
+  - libnoise
+  - ODE
+  - fftw (single and double precision)
+  - ATLAS (http://math-atlas.sourceforge.net)
+  - VSIPL (http://www.vsipl.org/)
+  - spuc
+  - portmidi
+  - upp
+  - v
+  - audicle
+  - chuck
+  - CSound
+  - DISSCO
+  - openmusic
+  
+ less important builds:
+ ----------------------
+
+  - loris
+  - libDSP
+  - mustajuuri
+  - spkit
+
+
+ projects to check:
+ ---------------------------------------------------
+
+  - http://camfr.sourceforge.net/
+  - http://cctbx.sourceforge.net/
+  - http://cern.ch/gaudi
+  - svn up libindustry
+  - watch latest boost developments
+  - http://tangentsoft.net/mysql++/
+  - inform about that stratego thing
+  - watch frequently at www.anticore.org
+
+
+ maintaining tasks:
+ ---------------------------------------------------
+
+   - add GNUmakefile to libxml2
+   - add GNUmakefile to
+   - compile libtdl for amygdala
+   - compile vanilla SndObj
+   - compile portmidi
+
+
+ library functionality to establish:
+ ---------------------------------------------------
+
+  - obsolete libchaos servauth (by implementing a slots-based thing which queues
+    dns/auth requests)
+  - separate libowfat hacks within shish and make shish work with plain lowfat
+  - XML I/O (Currently there is DOM implemented on xerces-c, and DOM/XPath implemented on libxml2,
+             and there is partial support for DOM using the XML parser of wxWidgets XML)
+  - yaml i/o
+  - adapt iostreams (indentation filter etc.)
+  - A generic vector drawing context which abstracts between cairo, SVG and OpenGL.
+    
+  - Make a working JavaScript parser.
+    For JS it gets more and more clear that SpiderMonkey is preferred over the parser from the
+    clipp project (by Peder Holdt), which is designed to evaluate just as it parses.
+    Using SpiderMonkey is also supported by the fact that also other parts of this well-developed
+    and widely-deployed engine are being adapted to generic concepts.
+    It will however be a bit of a dirty work as the extraction of the syntax 
+    tree needs to be done intrusively, say with knowledge of SpiderMonkeys
+    private data structures.
+
+  - Make a C++ parser.
+    There is nothing OpenSource which is more complete than g++. There have been alot attempts at this
+    by numerous people. There are also cint (used by CERN-ROOT), OpenC++ and gccxml to mention other
+    C++ parsing tools. Of these only the latter, being based upon a patched g++, covers the full C++98 
+    standard. But it is limited in its intention of providing interface information, written to an XML.
+    Also, this interface information (classes, method- and function-prototypes etc.) is not at syntax-
+    tree level but at RTL (runtime-language) level which provides already binary infos like the byte-size
+    of every type. It covers template instantiations but not the template itself as they already have
+    been thrown away by gcc at this time.
+
+  - Author name, title, abstract and references extraction, 
+    to handle the growth of my private PDF collection.
+
+  - PE/COFF/ELF reader class (ldd, symbol rewriting)
+  - gccxml -> build ast using xpath (using the libxml2 instantiation of the generic xml templates)
+  - grammar for makefiles?
+  - unify generic string from xml/lib/string.hpp with util/string stuff.. make a std::traits class... adapt all strings
+  - accumulate JSContext into thread-local-storage?
+    the current implementation of the js::context, the other js:: classes
+    and the generic classes which should abstract them struggles with the
+    extra argument for passing the context each time. also it has been implemented
+    to revert to a default context (and creating it when necessary) when this
+    extra-argument is not specified. this however increases the risk to break
+    thread-safety by forgetting the extra argument (because the default is taken
+    silently then).
+    
+
+
+ tools to write:
+ ---------------------------------------------------
+
+  - g++ driver/wrapper: catches error messages (especially those widely feared ones
+    that unroll template instantiations) and reformats them for improved readability.
+    otherwise it should have the same functionality as the original driver in that
+    it coordinates the compilation of one or more compilation units, doing the necessary
+    preprocessor, compiler, assembler and linker runs.
+  
+  - write cgrep, a code-aware grep which knows different languages and can 
+    tokenize and perhaps partly parse them.
+    in contrast to grep it will match language tokens or function prototypes
+    rather than lines. also, it will not output a line per match, rather it 
+    will output the containing block of code or the function prototype.
+    the output can be syntax-highlited (already working with c++).
+    
+    on the 2007-06-30 i found that there is already a 'cgrep', althought not
+    specialised on code it has the very similar goal of a 'Context grep', not 
+    limited to matching lines but rather trying to be context-aware.    
+    the paper 'Context grep' by Charles L.A. Clarke and Gordon V. Cormack dated
+    november 30, 1996 (!!!) covers it.
+
+  - write a program-transformation shell. it will have advanced code browsing 
+    and replacing capabilities and some basic refactoring functions.
+
+  - utility to create an archetype from a class/interface... 
+    ...and subsequently to create a concept check from the archetype..
+
+    for definitions, look at the documentation of boost::concept_check
+
+    furthermore i am after cross-language oo modeling, it should be possible
+    to seamlessly port abstract concepts between languages, thus making algorithms
+    and data structures designed for one language (automatically) portable to all
+    other supported languages. the specialities and limitations of each supported
+    language must be taken into account and guidelines/patterns for modelling have 
+    to be carefully developed.
+    
+
+ bugs to fix:
+ ---------------------------------------------------
+
+  - make defined() work in list_includes.cpp
+  - get the clipp javascript parser to output an AST, 
+    rather than launching its actors.
+
+
+ quick notes:
+ ---------------------------------------------------
+
+  -  damian.senn@gmail.com
+
+ gui coding tasks:
+ ---------------------------------------------------
+
+  - make cairo working ontop a vstgui::dc or wx::dc
+  - define generic interfaces for audio/midi i/o
+  - implement generic gui controls:
+      - knob
+      - adjust
+      - fader
+      - togglebutton
+  - implement the bank/program/parameter complex
+  - make the vst host work
+  - make threading work
+
+ INTERESTS
+ ---------------------------------------------------
+
+  - Programming
+
+    - language independence, on source level rather than
+      binary level (pfui java & cli, love meta- and generative programming)
+     
+      Hell, wait, some kind of "runtime adapting" to link shared libs into 
+      different languages could be cool. (20070626 - isnt this what libffi and the like do?)
+
+    - Debugging, Profiling 
+   
+    - Reverse engineering
+   
+    - Source code indexing/mining
+   
+    - Intelligent, automated builds
+   
+    - The script languages javascript and php and their engines, Zend resp. SpiderMonkey.
+   
+    - File metainformation and fast querying.
+
+ papers 
+ ---------------------------------------------------
+
+   Amatriain, X. (2005). An Object-Oriented Metamodel for Digital
+   Signal Processing with a focus on Audio and Music. Ph. D.
+   thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+
+   Amatriain, X. and P. Arumi (2005). Developing cross-platform
+   audio and music applications with the clam framework. In
+   Proceedings of International Computer Music Conference
+   2005.
+
+   Amatriain, X. and S. Pope (2006). An object-oriented metamodel
+   for multimedia processing. ACM Transactions on Multime-
+   dia Computing, Communications and Applications. in press.
+
+   Pope, S., F. Holm, and A. Kouznetsov (2004). Feature extraction
+   and database design for music software. In Proceedings of
+   the 2004 International Computer Music Conference (ICMC
+   04). International Computer Music Association.
+
+   Computer Music Journal,
+   vol. 24, no. 4, pp. 44-62, 2000
+
+   [2] P.N. Juslin, “Emotional communication in music
+   performance: a functionalist perspective and some data”,
+   Music Perception, vol. 14, no. 4, pp. 383-418, 1997
+
+   [3] A. Friberg, and G. U. Battel, “Structural Communication”,
+   In (R. Parncutt & G. E. McPherson, Eds.) The Science and
+   Psychology of Music Performance: Creative Strategies for
+   Teaching and Learning. New York: Oxford University
+   Press, 2002.
+
+   [4] A. Friberg, V. Colombo, L. Frydén, and J. Sundberg,
+   “Generating Musical Performances with Director
+   Musices”, Computer Music Journal, vol. 24, no. 3, pp. 23-
+   29,2000
+
+   [5] R. Bresin and G. U. Battel, “Articulation strategies in
+   expressive piano performance”, Journal of New Music
+   Research, (forthcoming).
+
+   [6] R. Bresin, Virtual Virtuosity – Studies in automatic music
+   performance. Doctoral dissertation, ISBN 91-7170-643-7,
+   Speech Music and Hearing, KTH, Stockholm, Sweden,
+   2000
+
+   [5] Michael Lee and David Wessel;Real-Time
+   Neuro-Fuzzy Systems for Adaptive Control of
+   Musical Processes
+                      
+   Winham, G., and Steiglitz, K. (1970). \Input Generators for Digital Sound Synthesis,
+   Journal of the Acoustical Society of America 47 2:ii, pp. 665-666.
+
+   [3] Cook. P., "Principles for Designing Computer Music
+   Controllers", NIME Workshop – CHI, 2001.
+
+   [4] Hunt, A. 1999. “Radical User Interfaces for Real-time
+   Musical Control”, PhD Thesis, University of York UK.
+
+   [5] Mulder, A., “Virtual Musical Instruments: Accessing the
+   Sound Synthesis Universe as a Performer”, Proceedings of
+   the first Brazilian Symposium on Computer Music, 1994.
+   [6] Ryan, J., “Some Remarks on Musical Instrument Design at
+   STEIM”, Contemporary music review, 6(1), pp. 3-17,
+   1991.
+
+   [7] Wanderley, M., “Performer-Instrument Interaction:
+   Applications to Gestural Control of Music”. PhD Thesis.
+   Paris, France: University Pierre et Marie Curie - Paris VI,
+   2001.
+
+   [8] Wessel, D. and M. Wright, "Problems and Prospects for
+   Intimate Musical Control of Computers." NIME Workshop
+   – CHI, 2001.
+
+   [9] Wanderley, M. and M. Battier, eds. CD-ROM, “Trends in
+   Gestural Control of Music”, Ircam-Centre Pompidou, 2000.
+
+   [10] Mulder, A.,“ Designing musical instruments that performers
+   can handle”, <http://www.cs.sfu.ca/people/ResearchStaff/
+   amulder/personal/vmi/vmi.html>
+
+   [11] Machover, T. “Instruments, Interactivity, and
+   Inevitability”, Proceedings of the NIME International
+   Conference, 2002.
+
+   [12] Jordà, S., “FMOL: Toward User-Friendly, Sophisticated
+   New Musical Instruments.” Computer Music Journal, Vol.
+   26, No.3. pp 23-39, 2002.
+
+   [13] Archives of Silence, 1996:Q2 Music for CD
+   http://www.newalbion.com/artists/cagej/silence/html/1996q2
+   /0098.html
+
+   [14] Jordà, S., Aguilar, T., “A graphical and net oriented
+   approach to interactive sonic composition and real-time
+   synthesis for low cost computer systems.” Digital Audio
+   Effects Workshop Proceedings, pp. 207-210, 1998.
+
+  
+ concepts:
+ ---------------------------------------------------
+
+  - GUI Widgets
+  
+     - Analytical: e.g. Histograms, Clouds (Well, need to look at CERNs ROOT)
+
+  - Sound Designer
+  
+    The sound designer is a special form of a wave-
+    editor. It consists of a visual editing area
+    which is displaying actual Waveforms and
+    Envelopes. Waveforms and Envelopes span over
+    the whole duration of the edited sound and can
+    be visually layered.
+
+    The other part is a modular (but not necessarily
+    realtime) synthesis engine, similar to Max, 
+    PureData and their derivates.
+    
+    The envelopes from the editing area can be 
+    mapped freely to multiple inputs of the synthesis
+    engine modules.
+    Outputs of the synthesis engine modules can be
+    routed to waveform displays in the editing area
+    for visual feedback.
+
+    Focus is on providing transparent and meaningful
+    ways of designing the timbral properties and the
+    progression of sounds.
+    
+    Additionaly it may help to extract a useable
+    parameter range for modulation of the designed
+    sound during performance. Certain parameters
+    at different stages of synthesis may be partially
+    or fully freezed, leaving only intended parameters.
+    For this to work a special sound storage format
+    has to be found.
+    
+
+  - Sound Performer
+  
+    Arrangement, Sequencing and Modulation engine.
+   
+    Neural nets?
+    Morphing?
+
+  - Sound Control
+  
+    - Sound Modulation
+    
+      Abstract low-level synthesis parameters into
+      more meaningful parameter sets (Properties
+      of resonant materials, Enviromental properties,
+      etc.)
+    
+    - Sound Physics/Dynamics
+    
+      Add physical/dynamical simulations, which is currently
+      missing in "state-of-the-art" virtual analog synths, which
+      is why real analog synths are still preferred by many
+      producers.
+      Could be implemented using ODE (Open Dynamics Engine).
+    
+    - Sound Guidance
+    
+      Sequence/Modulate for example the Beat-Machine
+      while the Performer is playing a Melody.
+    
+  - Cross-Instance within plugin hosts?  
+
+    A plugin which provides signal paths between
+    multiple Tracks and Sends in Ableton Live.
+    The plugin is instantiated multiple times in
+    different tracks and sends and shows up the
+    connection possibilities in a common GUI.
+    
