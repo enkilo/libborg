@@ -364,8 +364,9 @@ gdmmtest$(binext): gdmmtest.o
 
 proof.o: proof.cpp
 proof$(binext): LINK = $(CXXLINK)
-proof$(binext): LIBS = -lxerces-c
-proof$(binext): proof.o
+proof$(binext): CXXFLAGS += $(XERCES_CFLAGS)
+proof$(binext): LIBS += $(XERCES_LIBS) -lboost_system
+proof$(binext): proof.o 
 
 wxtest$(binext): wxtest.o libborg.a
 wxtest$(binext): LINK = $(CXXLINK)
@@ -435,6 +436,7 @@ endif
 apr_test$(binext): LIBS += -L$(bindir) -laprutil -lapr
 apr_test$(binext): apr_test.o
 
+XERCES_CFLAGS = -I/usr/include/xercesc-2.7.0
 XERCES_LIBS = -lxalan-c -lxerces-c
 
 xerces_test.o: xerces_test.cpp

@@ -15,8 +15,10 @@ struct integer_traits : boost::integer_traits<T>
   typedef T type;
   typedef boost::integer_traits<T> base_type;
   
-  static const unsigned int const_range = (base_type::const_max - base_type::const_min + 1);
-  enum { const_bits = boost::static_log2<const_range>::value };
+  //static const unsigned int const_range = (base_type::const_max - base_type::const_min + 1);
+  enum { const_range = (base_type::const_max - base_type::const_min + 1) };
+  static const unsigned int const_bits = boost::static_log2<const_range>::value;
+  //enum { const_bits = boost::static_log2<const_range>::value };
 };
 
 //---------------------------------------------------------------------------
