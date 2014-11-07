@@ -34,7 +34,7 @@
 #define support_option_long_long support_long_long
 #endif
 
-using namespace boost;
+//using namespace boost;
 
 static int indent_step;
 
@@ -44,12 +44,12 @@ typedef borg::rgb<bool> color_type;
 //!< hiliting colors.
 static color_type c_identifier, c_keyword, c_operator, c_literal, c_comment;
 
-typedef boost::tuple< wave::token_id, wave::token_id, int, const char *, const char * > context_def_type;
+typedef boost::tuple< boost::wave::token_id, boost::wave::token_id, int, const char *, const char * > context_def_type;
 
 //typedef array< context_def_type, NUM_CONTEXTS > contexts_type;
 
 // current file position is saved for exception handling
-static wave::util::file_position_type current_position;
+static boost::wave::util::file_position_type current_position;
 
 // open an input file and feed from it the given filtering chain...
 template<class FilteringStream>
@@ -74,7 +74,7 @@ process_file(const std::string &filename, context_def_type contexts[])
   using namespace std;
   using namespace wave;
   
-  iostreams::filtering_istream input;
+  boost::iostreams::filtering_istream input;
   
   if(!open_read(input, filename))
   {
@@ -90,15 +90,15 @@ process_file(const std::string &filename, context_def_type contexts[])
                  istreambuf_iterator<char>());
   
   // create an output filter chain for indentation
-  using namespace io;
+//  using namespace io;
   
-  iostreams::filtering_ostream output;
+  boost::iostreams::filtering_ostream output;
   
-  output.push(filter::indent_output(' ', false));
-  output.push(iostreams::file_descriptor_sink(1));
+  output.push(io::filter::indent_output(' ', false));
+  output.push(boost::iostreams::file_descriptor_sink(1));
   
-  filter::detail::indentation_state &indent_state =
-    output.component<filter::indent_output>(0)->state();
+	io::filter::detail::indentation_state &indent_state =
+    output.component<io::filter::indent_output>(0)->state();
   
   // tokenize the input data into C++ tokens using the C++ lexer
   typedef cpplexer::lex_token<> token_type;
@@ -213,7 +213,7 @@ main(int argc, char *argv[])
 {
   using namespace std;
   using namespace borg;
-  using namespace wave;
+  using namespace boost::wave;
 
   static context_def_type contexts[] = 
   {
@@ -320,7 +320,7 @@ main(int argc, char *argv[])
     }
   }
   // basically all exceptions.
-  catch(exception &e) 
+  catch(std::exception &e) 
   {
     cerr << "exception caught: " << e.what() << endl;    
     return 3;

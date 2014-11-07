@@ -233,11 +233,11 @@ void Test::noteOn(VstInt32 note, VstInt32 velocity, VstInt32 delta)
   
   currentNote = note;
 
-//  shakers->noteOn(note, 1);
+  shakers->noteOn(note, 1);
 }
 
 //-----------------------------------------------------------------------------------------
 void Test::noteOff()
 {
-//  shakers->noteOff(1);
+  shakers->noteOff(1);
 }
