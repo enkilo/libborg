@@ -437,7 +437,7 @@ apr_test$(binext): LIBS += -L$(bindir) -laprutil -lapr
 apr_test$(binext): apr_test.o
 
 XERCES_CFLAGS = -I/usr/include/xercesc-2.7.0
-XERCES_LIBS = -lxalan-c -lxerces-c
+XERCES_LIBS = -lxalan-c /usr/lib64/libxerces-c.so.27 #-lxerces-c
 
 xerces_test.o: xerces_test.cpp
 xerces_test$(binext): LINK = $(CXXLINK)
